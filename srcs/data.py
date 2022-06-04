@@ -1,5 +1,4 @@
-from this import d
-import random
+import random, pickle
 from movie import request_omdb
 
 class Game:
@@ -16,20 +15,23 @@ class Player:
 
 	#### member functiosn asked in the subject ####
 
-	def load(self, game):
-		self.MovieMons = game.MovieMons
-		self.playerStrength = game.playerStrength
-		self.position = game.position
-		self.movieballsNb = game.movieballsNb
-		self.moviedex = game.moviedex
+	def load(self, saveName):
+		with open(saveName, "rb") as f:
+			loadGame = pickle.load(f)
+		self.MovieMons = loadGame.MovieMons
+		self.playerStrength = loadGame.playerStrength
+		self.position = loadGame.position
+		self.movieballsNb = loadGame.movieballsNb
+		self.moviedex = loadGame.moviedex
 
-	def dump(self):
+	def dump(self, saveName):
 		save = Game(self.MovieMons, 
 				self.playerStrength, 
 				self.position, 
 				self.movieballsNb, 
 				self.moviedex)
-		return save
+		with open(saveName, "wb") as f:
+			pickle.dump(save, f)
 
 	def get_random_movie(self):
 		return random.choice(self.MovieMons).keys() # have to check later
