@@ -4,21 +4,32 @@ from movie import request_omdb
 
 class Game:
 	def __init__(self):
+		self.MovieMons = request_omdb() # a voir
+		self.playerStrength = 1.0 # a voir
 		self.position = (0, 0)
 		self.movieballsNb = 0
 		self.moviedex = []
-		
 
-class Data:
+class Player:
 	def __init__(self):
 		self.MovieMons = request_omdb()
 		self.playerStrength = 1.0
 
+	#### member functiosn asked in the subject ####
+
 	def load(self, game):
-		pass
+		self.position = game.position
+		self.movieballsNb = game.movieballsNb
+		self.moviedex = game.moviedex
 
 	def dump(self):
-		pass
+		save = Game()
+		save.playerStrength = self.playerStrength
+		save.position = self.position
+		save.movieballsNb = self.movieballsNb
+		save.moviedex = self.moviedex
+		save.playerStrength = self.playerStrength
+		return save
 
 	def get_random_movie(self):
 		random.choice(self.MovieMons)

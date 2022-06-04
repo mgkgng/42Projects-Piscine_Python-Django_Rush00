@@ -25,7 +25,7 @@ def request_omdb():
 			print("Error encountered while requesting to omdb api")
 			exit(1)
 		DATA = R.json()
-		res[movie] = DATA["imdbRating"]
+		res[movie] = DATA
 
 	return res
 
