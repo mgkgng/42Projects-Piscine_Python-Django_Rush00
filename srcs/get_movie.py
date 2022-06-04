@@ -1,4 +1,3 @@
-import re
 import requests, json, sys
 
 def request_omdb():
@@ -28,6 +27,3 @@ def request_omdb():
 		res[movie] = DATA
 
 	return res
-
-if __name__ == "__main__":
-	request_omdb()

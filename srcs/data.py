@@ -1,5 +1,5 @@
 import random, pickle
-from movie import request_omdb
+from get_movie import request_omdb
 
 class Game:
 	def __init__(self, MovieMons, playerStrength, position, movieballsNb, moviedex):
@@ -14,7 +14,6 @@ class Player:
 		self.load_default_settings()
 
 	#### member functiosn asked in the subject ####
-
 	def load(self, saveName):
 		with open(saveName, "rb") as f:
 			loadGame = pickle.load(f)
