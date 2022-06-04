@@ -9,14 +9,18 @@ def request_omdb(moviename):
 	DATA = R.json()
 
 	PARAMS = {
-		"s": moviename,
+		"t": moviename,
+		"type": "movie",
 		"r": "json",
 	}
 
 	R = S.get(url=URL, params=PARAMS)
+	if (R.status_code == 404):
+		print("Movie not found.")
+		exit(1)
 	DATA = R.json()
+	return DATA["imdbRating"]
 
-	print(json.dumps(DATA, sort_keys=True, indent=4))
 
 if __name__ == "__main__":
 	if len(sys.argv) != 2:
