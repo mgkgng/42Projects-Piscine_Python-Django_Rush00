@@ -1,5 +1,5 @@
 import random, pickle
-from get_movie import request_omdb
+from .get_movie import request_omdb
 
 class Game:
 	def __init__(self, MovieMons, playerStrength, position, movieballsNb, moviedex):
