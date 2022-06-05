@@ -2,14 +2,15 @@
 <html lang = "en">
     <head>
         <title>Gameboy</title>
-        <link rel="stylesheet" href="gameboystyle.css">
     </head>
     <body>
         <div class = gameboy>
-           <!-- {% block screen %}-->
+            {% block screen %}
+           {% load static %}
+           <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
             <div class = screen style = "background-color:green;">
             </div>
-            <!--{% endblock %}-->
+            {% endblock %}
             <table>
                 <tr>
                     <td><div class = buttonUp>↑</div></td>
