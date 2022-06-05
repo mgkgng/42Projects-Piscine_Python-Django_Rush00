@@ -75,16 +75,29 @@ def gameplay(request):
         "index_x": str(worldmap.Player.position[0]), "index_y": str(worldmap.Player.position[1])})
 
 def battle(request, slug) :
-    if request.GET.get('button') == "A":
-        pass
-    elif request.GET.get('button') == "B":
-        pass
+    global msg
+    global worldmap
 
-    strength = 97
-    winrate = 20
+    result = 0
+    c = 50 - (worldmap.Player.get_move("name")["imdbRating"] * 10) + (worldmap.Player.get_strength() * 5)
+    if c < 1:
+        c = 1
+    elif c > 90:
+        c = 90
+    if request.GET.get('button') == "A":
+        if worldmap.Player.movieballsNb == 0:    
+            msg = "No MovieBall left, the MovieMon got angry!!!"
+            return redirect("/battle/")
+        else:
+            catch = random.choice([1, 0], weight=(c, 100 - c), k=1)
+            result = catch[0]
+    elif request.GET.get('button') == "B":
+        redirect("/gameplay", {"path": "gameplay"})
+
     mydict = {}
+    mydict["msg"] = msg
     mydict["movieballs"] = worldmap.Player.movieballNb
     mydict["strength"] = worldmap.Player.playerStrength
-    mydict["winrate"] = 20
-    mydict["success"] = random.randint(0, 1)
+    mydict["winrate"] = c
+    mydict["success"] = result
     return render(request, "html/battle.html", mydict)
