@@ -2,30 +2,30 @@
 <html lang = "en">
     <head>
         <title>Gameboy</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
     </head>
     <body>
         <div class = gameboy>
             {% block screen %}
-           {% load static %}
-           <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
             <div class = screen style = "background-color:green;">
             </div>
             {% endblock %}
             <table>
                 <tr>
-                    <td><a class = buttonUp href="{{path}}?button=1" >↑</a></td>
+                    <td><a class = buttonUp href="{{path}}?button=UP" >↑</a></td>
                 </tr>
                 <tr>
-                    <td><a class = buttonMiddleLeft href="{{path}}?button=2">←</a></td>
-                    <td><a class = buttonMiddleRight href="{{path}}?button=3">→</a></td>
+                    <td><a class = buttonMiddleLeft href="{{path}}?button=LEFT">←</a></td>
+                    <td><a class = buttonMiddleRight href="{{path}}?button=RIGHT">→</a></td>
                 </tr>
                 <tr>
-                    <td><a class = buttonDown href="{{path}}?button=4">↓</a></td>
+                    <td><a class = buttonDown href="{{path}}?button=DOWN">↓</a></td>
                 </tr>
             </table>
-            <td><a class = buttonAction1 href="{{path}}?button=5">A</a><td><a class = buttonAction2 href="gameboy?button=6">B</a></td></td> 
-            <a class = buttonSpecial1 href="{{path}}?button=7">Start</a>
-            <a class = buttonSpecial2 href="{{path}}?button=8">Select</a>
+            <td><a class = buttonAction1 href="{{path}}?button=A">A</a><td><a class = buttonAction2 href="{{path}}?button=B">B</a></td></td> 
+            <a class = buttonSpecial1 href="{{path}}?button=START">Start</a>
+            <a class = buttonSpecial2 href="{{path}}?button=SELECT">Select</a>
             <div></div>
         </div>
     </body>

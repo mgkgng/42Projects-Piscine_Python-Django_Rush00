@@ -4,9 +4,20 @@ from .srcs.worldmap import Worldmap
 worldmap = Worldmap(10, 10)
 
 def titlepage(request):
-    return render(request, "html/titlepage.html", {"path": titlepage})
+    if request.GET.get('button') == "A":
+        return (render(request, "html/worldmap.html", {"path": "gameplay"}))
+    elif request.GET.get('button') == "B":
+        return (render(request, "html/titlepage.html"), {})
+    return render(request, "html/titlepage.html", {"path": ""})
 
-def gameboy(request):
-    print(request.GET.get('value'))
+def load(request):
+    if request.GET.get('button') == "A":
+        pass
+    if request.GET.get('button') == "B":
+        pass
+    return render(request, "html/load.html")
+
+def gameplay(request, game):
+    print(request.GET.get('button'))
     #form = Button()
-    return render(request, "html/gameboy.html")
+    return render(request, "html/worldmap.html", {"path": "gameplay"})
