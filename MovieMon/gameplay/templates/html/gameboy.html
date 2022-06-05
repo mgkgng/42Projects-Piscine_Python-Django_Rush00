@@ -2,30 +2,30 @@
 <html lang = "en">
     <head>
         <title>Gameboy</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
     </head>
     <body>
         <div class = gameboy>
             {% block screen %}
-           {% load static %}
-           <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
             <div class = screen style = "background-color:green;">
             </div>
             {% endblock %}
             <table>
                 <tr>
-                    <td><div class = buttonUp>↑</div></td>
+                    <td><a class = buttonUp href="{{path}}?button=UP" >↑</a></td>
                 </tr>
                 <tr>
-                    <td><div class = buttonMiddleLeft>←</div></td>
-                    <td><div class = buttonMiddleRight>→</div></td>
+                    <td><a class = buttonMiddleLeft href="{{path}}?button=LEFT">←</a></td>
+                    <td><a class = buttonMiddleRight href="{{path}}?button=RIGHT">→</a></td>
                 </tr>
                 <tr>
-                    <td><div class = buttonDown>↓</div></td>
+                    <td><a class = buttonDown href="{{path}}?button=DOWN">↓</a></td>
                 </tr>
             </table>
-            <div class = buttonAction1> A<div class = buttonAction2> B</div></div>
-            <div class = buttonSpecial1>Start</div>
-            <div class = buttonSpecial2>Select</div>
+            <td><a class = buttonAction1 href="{{path}}?button=A">A</a><td><a class = buttonAction2 href="{{path}}?button=B">B</a></td></td> 
+            <a class = buttonSpecial1 href="{{path}}?button=START">Start</a>
+            <a class = buttonSpecial2 href="{{path}}?button=SELECT">Select</a>
             <div></div>
         </div>
     </body>

@@ -1,5 +1,5 @@
 import random, pickle
-from get_movie import request_omdb
+from .get_movie import request_omdb
 
 class Game:
 	def __init__(self, MovieMons, playerStrength, position, movieballsNb, moviedex):
@@ -10,8 +10,11 @@ class Game:
 		self.moviedex = moviedex
 
 class Player:
-	def __init__(self):
-		self.load_default_settings()
+	def __init__(self, save = None):
+		if save == None:
+			self.load_default_settings()
+		else:
+			self.load(save)
 
 	#### member functiosn asked in the subject ####
 	def load(self, saveName):
@@ -33,12 +36,14 @@ class Player:
 			pickle.dump(save, f)
 
 	def get_random_movie(self):
-		return random.choice(self.MovieMons).keys() # have to check later
+		keys = list(self.MovieMons)
+		choice = random.choice(keys)
+		return self.MovieMons[str(choice)] # have to check later
 
 	def load_default_settings(self):
 		self.MovieMons = request_omdb()
-		self.playerStrength = 3.0
-		self.position = (0, 0)
+		self.playerStrength = 10
+		self.position = [5, 5]
 		self.movieballsNb = 0
 		self.moviedex = []
 
@@ -47,3 +52,8 @@ class Player:
 
 	def get_movie(self, name):
 		return self.MovieMons["name"]
+
+	def get_movie_by_id(self, movie_id):
+		for moviename in self.MovieMons.keys():
+			if self.MovieMons[moviename]["imdbID"] == movie_id:
+				return self.MovieMons[moviename]

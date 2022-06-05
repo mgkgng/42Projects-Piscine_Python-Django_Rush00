@@ -1,0 +1,30 @@
+{% extends "html/gameboy.html" %}
+
+{% block screen %}
+
+<div class = screen style = "background-color: green;">
+    <ul>
+        <li>MovieBalls: {{movieballs}}</li>
+        <li>Your strength: {{strength}}</li>
+        <li>Winrate: {{winrate}}</li>
+    </ul>
+    <h2>{{msg}}</h2>
+    <div style = "margin-left:150px;">
+        {% if success == 1 %}
+        You caught it
+        {% elif success == 2 %}
+        You missed!
+        {% endif %}
+    </div>
+    <img style = "margin-right:50px; margin-top:20px; margin-left:150px;" src={{image}} width="100">
+    <div style= "margin-left:120px; margin-top: 200px;">
+        {% if success == 0 or 2%}
+        A - Launch movieball
+        {%endif %}
+    </div>
+    <div style= "margin-left:120px;">
+        B - Back to the Worldmap.
+    </div>
+</div>
+
+{% endblock %}

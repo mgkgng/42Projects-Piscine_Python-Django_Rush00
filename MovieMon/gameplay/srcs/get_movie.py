@@ -1,10 +1,9 @@
-import requests, json, sys
+import requests, json, os
 
 def request_omdb():
 	res = dict()
 
-	movielist = open("movielist.txt", 'r').readlines()
-	request_omdb(movielist)
+	movielist = open(os.getcwd() + "/gameplay/srcs/movielist.txt", 'r').readlines()
 
 	S = requests.Session()
 	URL = "http://www.omdbapi.com/?i=tt3896198&apikey=c4f868ed"
@@ -13,17 +12,16 @@ def request_omdb():
 	DATA = R.json()
 
 	for movie in movielist:
+		moviename = movie.rstrip("\n")
 		PARAMS = {
-			"t": movie,
+			"t": moviename,
 			"type": "movie",
 			"r": "json",
 		}
-
 		R = S.get(url=URL, params=PARAMS)
 		if (R.status_code == 404):
 			print("Error encountered while requesting to omdb api")
 			exit(1)
 		DATA = R.json()
-		res[movie] = DATA
-
+		res[moviename] = DATA
 	return res

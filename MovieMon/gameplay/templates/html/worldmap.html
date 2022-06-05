@@ -1,0 +1,26 @@
+{% extends "html/gameboy.html" %}
+
+{% block screen %}
+<div class = screen style = "background-color:green;">
+
+	<div>
+		<table>
+			<tr>movieball: {{movieballNb}}</tr><br>
+			<tr>{{msg}}</tr>
+		</table>
+	</div>
+	<table>
+		{% for x in "0123456789" %}
+		<tr>
+			{% for y in "0123456789" %}
+			{% if index_x == x and index_y == y %}
+			<td width="40" height="50"><img src="static/images/player.png" alt="player" width="40" height="50"></td>
+			{% else %}
+			<td width="40" height="50"></td>
+			{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endblock %}
