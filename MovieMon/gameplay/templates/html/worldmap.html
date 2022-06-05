@@ -2,11 +2,12 @@
 
 {% block screen %}
 <div class = screen style = "background-color:green;">
+
 	<div>
-		<p>movieball: {{movieballNb}}</p>
-	</div>
-	<div>
-		<h1>{{msg}}</h1>
+		<table>
+			<tr>movieball: {{movieballNb}}</tr><br>
+			<tr>{{msg}}</tr>
+		</table>
 	</div>
 	<table>
 		{% for x in "0123456789" %}
