@@ -62,6 +62,7 @@ def gameplay(request):
     if battle == True:
         if request.GET.get('button') == "A":
             movie_id = worldmap.Player.get_random_movie()["imdbID"]
+            msg=""
             return HttpResponseRedirect(reverse("battle", args=(movie_id, )))
         else:
             return render(request, "html/worldmap.html", {"path": "gameplay", "msg": msg, "movieballNb" : str(worldmap.Player.movieballsNb), 
@@ -105,13 +106,16 @@ def battle(request, monster_id) :
     global msg
     global worldmap
     global battle
+    global caught
 
     battle = False
     msg_battle = ""
-    if worldmap.Player.movieballsNb == 0:
+    if worldmap.Player.movieballsNb == 0 and caught == False:
         msg_battle = "No more movieball left!"
     movie = worldmap.Player.get_movie_by_id(monster_id)
     result = 0
+    if caught == True:
+        result = 1
     c = 50 - (float(movie["imdbRating"]) * 10) + (worldmap.Player.get_strength() * 5)
     if c < 1:
         c = 1
@@ -126,6 +130,7 @@ def battle(request, monster_id) :
             result = catch[0]
             if result == 1:
                 worldmap.Player.moviedex.append(movie)
+                caught = True
     elif request.GET.get('button') == "B":
         return redirect("/gameplay", {"path": "gameplay"})
     mydict = {}
@@ -134,9 +139,7 @@ def battle(request, monster_id) :
     mydict["strength"] = worldmap.Player.playerStrength
     mydict["winrate"] = c
     mydict["success"] = result
-    mydict["image"] = movie["Poster"]
-    if result == 1:
-        caught = True
+    mydict["image"] = movie["Poster"]        
     return render(request, "html/battle.html", mydict)
 
 
