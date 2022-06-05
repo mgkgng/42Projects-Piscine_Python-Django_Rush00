@@ -1,0 +1,27 @@
+0 : vide, rocher
+1 : vide, passable -> sable
+2 : moviemon peut apparaite (30%) -> herbe
+
+// forloop worldmap
+{% forloop horizontal %}
+{% forloop vertical%}
+{% if valeur == 0 %}
+	img.rocher
+{% elif valeur == 1 %}
+	img.sable
+{% elif valeur == 2 %}
+	img.herbe
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+// forloop movieball map 0 (non), 1 (oui)
+movieballmap.py
+si la valeur 1, 2 -> 
+{% forloop horizontal %}
+{% forloop vertical%}
+{% if valeur == 1 %}
+	img.movieball
+{% endif %}
+{% endfor %}
+{% endfor %}
