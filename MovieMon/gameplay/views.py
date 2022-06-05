@@ -13,7 +13,6 @@ msg_battle = ""
 battle = False
 caught = False
 
-
 def titlepage(request):
     global worldmap
     global current_player
@@ -28,9 +27,13 @@ def load(request) :
     global loaded
     global worldmap
     global current_player
-    l = len(current_player.game.moviedex)
-    l1 = 0
-    l2 = 0
+    l1, l2, l3 = "None", "None", "None"
+    if worldmap.Games[0] is not None:
+        l1 = str(len(worldmap.Games[0].moviedex)) + " / 15"
+    if worldmap.Games[1] is not None:
+        l2 = str(len(worldmap.Games[1].moviedex)) + " / 15"
+    if worldmap.Games[2] is not None:
+        l3 = str(len(worldmap.Games[2].moviedex)) + " / 15"
     if request.GET.get('button') == "UP":
         if index > 0:
             index -= 1
@@ -39,23 +42,25 @@ def load(request) :
             index += 1
     elif request.GET.get('button') == "A":
         if loaded == 0:
-            if l != 0 and index == 0:
-                current_game = current_player.game.load("third")
+            if l1 != "None" and index == 0:
+                current_player.game = worldmap.Games[index]
                 loaded = 1
                 return redirect('/gameplay', {"path": "gameplay"})
-            if l1 != 0 and index == 1:
-                #load save1
+            if l2 != "None" and index == 1:
+                current_player.game = worldmap.Games[index]
                 loaded = 1
-            if l2 != 0 and index == 2:
-                #load save2
+                return redirect('/gameplay', {"path": "gameplay"})
+            if l3 != "None" and index == 2:
+                current_player.game = worldmap.Games[index]
                 loaded = 1
+                return redirect('/gameplay', {"path": "gameplay"})
         elif loaded == 1:
             loaded = 0
             #Go to worldmap
     elif request.GET.get('button') == "B":
         return redirect('/', {"path": ""})
 
-    return render(request, "html/load.html", {"A" : l, "B" : l1, "C" : l2, "index" : index, "loaded" : loaded})
+    return render(request, "html/load.html", {"A" : l1, "B" : l2, "C" : l3, "index" : index, "loaded" : loaded})
 
 def make_event(request):
     global msg
@@ -197,15 +202,15 @@ def save(request) :
     global current_player
 
     l1, l2, l3 = "None", "None", "None"
-    if worldmap.Games[0] != None:
-        l1 = str(len(worldmap.Games[0].game.moviedex)) + " / 15"
-    if worldmap.Games[1] != None:
-        l2 = str(len(worldmap.Games[1].game.moviedex)) + " / 15"
-    if worldmap.Games[2] != None:
-        l3 = str(len(worldmap.Games[2].game.moviedex)) + " / 15"
+    if worldmap.Games[0] is not None:
+        l1 = str(len(worldmap.Games[0].moviedex)) + " / 15"
+    if worldmap.Games[1] is not None:
+        l2 = str(len(worldmap.Games[1].moviedex)) + " / 15"
+    if worldmap.Games[2] is not None:
+        l3 = str(len(worldmap.Games[2].moviedex)) + " / 15"
     if request.GET.get('button') == "B":
         return redirect('/options', {"path": "options"})
-    if request.GET.get('button') == "UP":
+    elif request.GET.get('button') == "UP":
         if index > 0:
             index -= 1
     elif request.GET.get('button') == "DOWN":
@@ -213,6 +218,7 @@ def save(request) :
             index += 1
     elif request.GET.get('button') == "A":
         current_player.dump(str(index))
+        worldmap.Games[index] = current_player.game
 
     return render(request, "html/save.html", {"A" : l1, "B": l2, "C": l3, "index" : index})
 
