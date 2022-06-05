@@ -4,10 +4,8 @@ from .srcs.data import Player
 from .srcs.data import Game
 import random
 
-global worldmap
-global current_player
-global index
-global loaded
+worldmap = Worldmap()
+current_player = Player()
 index = int(0)
 loaded = int(0)
 msg = ""
@@ -20,12 +18,8 @@ def titlepage(request):
     global worldmap
     global current_player
     if request.GET.get('button') == "A":
-        current_player = Player()
-        worldmap = Worldmap()
         return redirect('/gameplay', {"path": "gameplay"})
     elif request.GET.get('button') == "B":
-        if worldmap == None:
-            worldmap = Worldmap()
         return (redirect("/options/load_game", {"path": "/options/load_game"}))
     return render(request, "html/titlepage.html", {"path": ""})
 
@@ -58,6 +52,9 @@ def load(request) :
         elif loaded == 1:
             loaded = 0
             #Go to worldmap
+    elif request.GET.get('button') == "B":
+        return redirect('/', {"path": ""})
+
     return render(request, "html/load.html", {"A" : l, "B" : l1, "C" : l2, "index" : index, "loaded" : loaded})
 
 def make_event(request):
@@ -126,20 +123,21 @@ def gameplay(request):
 
 def moviedex(request) :
     global index
-    global current_game
+    global current_player
 
-    imgdex = [current_player.game.MovieMons[moviename]["Poster"] for moviename in current_player.game.MovieMons.keys()]
+    imgdex = [movie["Poster"] for movie in current_player.game.moviedex]
     if request.GET.get('button') == "SELECT":
         return redirect('/gameplay', {"path": "gameplay"})
-
-    if request.GET.get('button') == "LEFT":
+    if request.GET.get('button') == "LEFT" and len(imgdex) > 0:
         if index > 0:
             index -= 1
-    elif request.GET.get('button') == "RIGHT":
+    elif request.GET.get('button') == "RIGHT" and len(imgdex) > 0:
         if index < len(imgdex) - 1:
             index += 1
     print(str(index) + "   this is value " + str(len(imgdex)))
-    choice = imgdex[index]
+    choice = 0
+    if len(imgdex) > 0:
+        choice = imgdex[index]
     #mydict = {}#Remplir des images des moviemons attrapes
     return render (request,"html/moviedex.html", {"path": "moviedex", "img" : imgdex, "choice" : choice})
 
@@ -170,7 +168,7 @@ def battle(request, monster_id) :
             current_player.game.movieballsNb -= 1
             catch = random.choices([1, 2], weights=(c, 100 - c), k=1)
             result = catch[0]
-            if result == 1:
+            if result == 1 :
                 current_player.game.moviedex.append(movie)
                 caught = True
     elif request.GET.get('button') == "B":
