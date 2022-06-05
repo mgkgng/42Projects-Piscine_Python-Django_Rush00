@@ -12,11 +12,11 @@
     <div style = "margin-left:150px;">
         {% if success == 1 %}
         You caught it
-        {% else %}
+        {% elif success == 2 %}
         You missed!
         {% endif %}
     </div>
-    <img style = "margin-right:50px; margin-top:20px; margin-left:150px;" src="https://img.20mn.fr/BdKLTC6ITZ-am5J9CgwqoCk/768x492_illustration-australotitan-cooperensis-nouvelle-espece-dinosaure" width="100">
+    <img style = "margin-right:50px; margin-top:20px; margin-left:150px;" src={{image}} width="100">
     <div style= "margin-left:120px; margin-top: 200px;">
         {% if success == 0 %}
         A - Launch movieball

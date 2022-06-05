@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from .srcs.worldmap import Worldmap
 import random
 
@@ -48,11 +48,14 @@ def gameplay(request):
     #if 'worldmap' not in globals():
     #    redirect('/titlepage')
     if battle == True:
+        print("bahbah")
         if request.GET.get('button') == "A":
             movie_id = worldmap.Player.get_random_movie()["imdbID"]
-            return redirect("/battle/" + movie_id, {"path": f"battle/{movie_id}"})
+            print(type(movie_id))
+            return HttpResponseRedirect(reverse("battle", args=(movie_id, )))
         else:
-            return render(request, "html/worldmap.html", {"path": "battle", "msg": msg, "movieballNb" : str(worldmap.Player.movieballsNb), 
+            print("coucou")
+            return render(request, "html/worldmap.html", {"path": "gameplay", "msg": msg, "movieballNb" : str(worldmap.Player.movieballsNb), 
             "index_x": str(worldmap.Player.position[0]), "index_y": str(worldmap.Player.position[1])})
  
     if request.GET.get('button') == "UP":
@@ -74,12 +77,14 @@ def gameplay(request):
     return render(request, "html/worldmap.html", {"path": "gameplay", "msg": msg, "movieballNb" : str(worldmap.Player.movieballsNb), 
         "index_x": str(worldmap.Player.position[0]), "index_y": str(worldmap.Player.position[1])})
 
-def battle(request, slug) :
+def battle(request, monster_id) :
     global msg
     global worldmap
 
+    msg=""
+    movie = worldmap.Player.get_movie_by_id(monster_id)
     result = 0
-    c = 50 - (worldmap.Player.get_move("name")["imdbRating"] * 10) + (worldmap.Player.get_strength() * 5)
+    c = 50 - (float(movie["imdbRating"]) * 10) + (worldmap.Player.get_strength() * 5)
     if c < 1:
         c = 1
     elif c > 90:
@@ -89,15 +94,16 @@ def battle(request, slug) :
             msg = "No MovieBall left, the MovieMon got angry!!!"
             return redirect("/battle/")
         else:
-            catch = random.choice([1, 0], weight=(c, 100 - c), k=1)
+            catch = random.choices([1, 2], weights=(c, 100 - c), k=1)
             result = catch[0]
     elif request.GET.get('button') == "B":
         redirect("/gameplay", {"path": "gameplay"})
 
     mydict = {}
     mydict["msg"] = msg
-    mydict["movieballs"] = worldmap.Player.movieballNb
+    mydict["movieballs"] = worldmap.Player.movieballsNb
     mydict["strength"] = worldmap.Player.playerStrength
     mydict["winrate"] = c
     mydict["success"] = result
+    mydict["image"] = movie["Poster"]
     return render(request, "html/battle.html", mydict)

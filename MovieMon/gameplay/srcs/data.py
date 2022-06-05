@@ -52,3 +52,8 @@ class Player:
 
 	def get_movie(self, name):
 		return self.MovieMons["name"]
+
+	def get_movie_by_id(self, movie_id):
+		for moviename in self.MovieMons.keys():
+			if self.MovieMons[moviename]["imdbID"] == movie_id:
+				return self.MovieMons[moviename]
