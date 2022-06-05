@@ -10,6 +10,10 @@
     justify-content: space-around;
 }
 
+a {
+    text-decoration: none;
+}
+
 .screen{
     height: 500px;
     width :400px;
