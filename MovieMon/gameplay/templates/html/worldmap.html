@@ -1,5 +1,19 @@
 {% extends "html/gameboy.html" %}
 
 {% block screen %}
-<h2>number of pokeballs!</h2>
+<div class = screen style = "background-color:green;">
+	<table>
+		{% for x in "0123456789" %}
+		<tr>
+			{% for y in "0123456789" %}
+			{% if index_x == x and index_y == y %}
+			<td width="40" height="50"><img src="static/images/player.png" alt="player" width="40" height="50"></td>
+			{% else %}
+			<td width="40" height="50"></td>
+			{% endif %}
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</table>
+</div>
 {% endblock %}

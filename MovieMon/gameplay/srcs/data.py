@@ -36,12 +36,12 @@ class Player:
 			pickle.dump(save, f)
 
 	def get_random_movie(self):
-		return random.choice(self.MovieMons).keys() # have to check later
+		return random.choice(self.MovieMons.values()) # have to check later
 
 	def load_default_settings(self):
 		self.MovieMons = request_omdb()
 		self.playerStrength = 3.0
-		self.position = (8, 8)
+		self.position = [5, 5]
 		self.movieballsNb = 0
 		self.moviedex = []
 
