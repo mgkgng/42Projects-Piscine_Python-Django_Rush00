@@ -36,7 +36,9 @@ class Player:
 			pickle.dump(save, f)
 
 	def get_random_movie(self):
-		return random.choice(self.MovieMons.values()) # have to check later
+		keys = list(self.MovieMons)
+		choice = random.choice(keys)
+		return self.MovieMons[str(choice)] # have to check later
 
 	def load_default_settings(self):
 		self.MovieMons = request_omdb()

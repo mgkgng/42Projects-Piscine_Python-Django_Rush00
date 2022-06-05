@@ -24,6 +24,4 @@ def request_omdb():
 			exit(1)
 		DATA = R.json()
 		res[moviename] = DATA
-	facile = json.dumps(res["The Ring"], sort_keys=True, indent=4)
-	print(facile)
 	return res
