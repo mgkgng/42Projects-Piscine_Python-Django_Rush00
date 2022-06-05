@@ -1,24 +1,21 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from .srcs.worldmap import Worldmap
 import random
 
 global worldmap
-global now
+global index 
+global loaded
+index = int(0)
+loaded = int(0)
 
 def titlepage(request):
     if request.GET.get('button') == "A":
         worldmap = Worldmap(20, 20)
+        index = 0
         return (render(request, "html/worldmap.html", {"path": "gameplay"}))
     elif request.GET.get('button') == "B":
         return (render(request, "html/load.html"), {})
     return render(request, "html/titlepage.html", {"path": ""})
-
-def load(request):
-    if request.GET.get('button') == "A":
-        pass
-    if request.GET.get('button') == "B":
-        pass
-    return render(request, "html/load.html")
 
 def gameplay(request, game):
     if request.GET.get('button') == "UP":
@@ -34,23 +31,21 @@ def gameplay(request, game):
         if worldmap.Player.position[1] < worldmap.mapSize[0]:
             worldmap.Player.position[1] += 1
 
-    print(request.GET.get('button')) 
     #form = Button()
     return render(request, "html/worldmap.html", {"path": "gameplay"})
 
 def moviedex(request) :
-    print(request.GET.get("value"))
-    now = 2
+    global index
     worldmap = Worldmap(10, 10)
     imgdex = [worldmap.Player.MovieMons[moviename]["Poster"] for moviename in worldmap.Player.MovieMons.keys()]
     if request.GET.get('button') == "LEFT":
-        print("hello")
-        if now > 0:
-            now -= 1
+        if index > 0:
+            index -= 1
     elif request.GET.get('button') == "RIGHT":
-        if now < len(imgdex):
-            now += 1
-    choice = imgdex[now]
+        if index < len(imgdex):
+            index += 1
+    print(str(index) + "   this is value " + str(len(imgdex)))
+    choice = imgdex[index]
     #mydict = {}#Remplir des images des moviemons attrapes
     return render (request,"html/moviedex.html", {"path": "moviedex", "img" : imgdex, "choice" : choice})
 
@@ -64,3 +59,58 @@ def battle(request) :
     mydict["winrate"] = 20
     mydict["success"] = random.randint(0, 1)
     return render(request, "html/battle.html", mydict)
+
+def detail(request) :
+    mydict = {}
+    mydict["name"] = "Pulp Fiction"
+    mydict["director"] = "Tarantino"
+    mydict["year"] = "1994"
+    mydict["rating"] = "10"
+    mydict["synopsis"] = "Drogues, armes, mafia"
+    mydict["actors"] = "tarantino, travolta"
+    mydict["Bback"] = "test"
+    return render(request, "html/detail.html", mydict)
+
+def options(request) :
+    return render(request, "html/options.html")
+
+def save(request) :
+    global index
+    worldmap = Worldmap(10, 10)
+    l = len(worldmap.Player.moviedex)
+    if request.GET.get('button') == "UP":
+        if index > 0:
+            index -= 1
+    elif request.GET.get('button') == "DOWN":
+        if index < 2:
+            index += 1
+    return render(request, "html/save.html", {"A" : l, "index" : index})
+
+def load(request) :
+    global index
+    global loaded
+    worldmap = Worldmap(10, 10)
+    l = len(worldmap.Player.moviedex)
+    l1 = 0
+    l2 = 0
+    if request.GET.get('button') == "UP":
+        if index > 0:
+            index -= 1
+    elif request.GET.get('button') == "DOWN":
+        if index < 2:
+            index += 1
+    elif request.GET.get('button') == "A":
+        if loaded == 0:
+            if l != 0 and index == 0:
+                #load save 0
+                loaded = 1
+            if l1 != 0 and index == 1:
+                #load save1
+                loaded = 1
+            if l2 != 0 and index == 2:
+                #load save2
+                loaded = 1
+        elif loaded == 1:
+            loaded = 0
+            #Go to worldmap
+    return render(request, "html/load.html", {"A" : l, "B" : l1, "C" : l2, "index" : index, "loaded" : loaded})
