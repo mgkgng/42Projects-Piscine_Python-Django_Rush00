@@ -10,6 +10,32 @@
     justify-content: space-around;
 }
 
+.MovieMonTitle{
+    color:blue;
+    text-align:center;
+    font-size: 2em;
+    margin-left: 120px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.TitleScreenOption{
+    text-align:center;
+    font-size: 1em;
+    margin-left: 110px;
+    margin-bottom:20px;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+a {
+    text-decoration: none;
+}
+
 .screen{
     height: 500px;
     width :400px;
