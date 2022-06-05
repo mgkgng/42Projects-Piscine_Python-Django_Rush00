@@ -12,17 +12,18 @@ def request_omdb():
 	DATA = R.json()
 
 	for movie in movielist:
+		moviename = movie.rstrip("\n")
 		PARAMS = {
-			"t": movie,
+			"t": moviename,
 			"type": "movie",
 			"r": "json",
 		}
-
 		R = S.get(url=URL, params=PARAMS)
 		if (R.status_code == 404):
 			print("Error encountered while requesting to omdb api")
 			exit(1)
 		DATA = R.json()
-		res[movie] = DATA
-
+		res[moviename] = DATA
+	facile = json.dumps(res["The Ring"], sort_keys=True, indent=4)
+	print(facile)
 	return res

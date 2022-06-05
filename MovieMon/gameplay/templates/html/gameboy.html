@@ -2,12 +2,12 @@
 <html lang = "en">
     <head>
         <title>Gameboy</title>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
     </head>
     <body>
         <div class = gameboy>
             {% block screen %}
-           {% load static %}
-           <link rel="stylesheet" type="text/css" href="{% static 'css/gameboystyle.css' %}">
             <div class = screen style = "background-color:green;">
             </div>
             {% endblock %}

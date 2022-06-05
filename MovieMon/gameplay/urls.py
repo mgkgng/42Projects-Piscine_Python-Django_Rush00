@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('', views.gameboy, name='console'),
+    path('battle', views.battle, name='battletemplate'),
     path('buttonUp', views.buttonUp, name='buttonUp'),
 	path('buttonDown', views.buttonDown, name='buttonDown'),
 	path('buttonMiddleLeft', views.buttonMiddleLeft, name='buttonMiddleLeft'),
