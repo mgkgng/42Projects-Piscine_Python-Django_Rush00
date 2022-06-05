@@ -19,7 +19,7 @@ def titlepage(request):
         worldmap = Worldmap(10, 10)
         return redirect('/gameplay', {"path": "gameplay"})
     elif request.GET.get('button') == "B":
-        return (redirect("/load", {"path": "load"}))
+        return (redirect("/options/load_game", {"path": "/options/load_game"}))
     return render(request, "html/titlepage.html", {"path": ""})
 
 def load(request):
@@ -67,6 +67,10 @@ def gameplay(request):
             return render(request, "html/worldmap.html", {"path": "gameplay", "msg": msg, "movieballNb" : str(worldmap.Player.movieballsNb), 
             "index_x": str(worldmap.Player.position[0]), "index_y": str(worldmap.Player.position[1])})
  
+    if request.GET.get('button') == "START":
+        return redirect('/options', {"path": "options"})
+    if request.GET.get('button') == "SELECT":
+        return redirect('/moviedex', {"path": "moviedex"})
     if request.GET.get('button') == "UP":
         if worldmap.Player.position[0] > 0:
             worldmap.Player.position[0] -= 1
@@ -90,11 +94,13 @@ def moviedex(request) :
     global index
     worldmap = Worldmap(10, 10)
     imgdex = [worldmap.Player.MovieMons[moviename]["Poster"] for moviename in worldmap.Player.MovieMons.keys()]
+    if request.GET.get('button') == "SELECT":
+        return redirect('/gameplay', {"path": "gameplay"})
     if request.GET.get('button') == "LEFT":
         if index > 0:
             index -= 1
     elif request.GET.get('button') == "RIGHT":
-        if index < len(imgdex):
+        if index < len(imgdex) - 1:
             index += 1
     print(str(index) + "   this is value " + str(len(imgdex)))
     choice = imgdex[index]
@@ -105,6 +111,7 @@ def battle(request, monster_id) :
     global msg
     global worldmap
     global battle
+    global caught
 
     battle = False
     msg_battle = ""
@@ -141,6 +148,8 @@ def battle(request, monster_id) :
 
 
 def detail(request) :
+    if request.GET.get('button') == "B":
+        return redirect('/moviedex', {"path": "moviedex"})
     mydict = {}
     mydict["name"] = "Pulp Fiction"
     mydict["director"] = "Tarantino"
@@ -152,12 +161,20 @@ def detail(request) :
     return render(request, "html/detail.html", mydict)
 
 def options(request) :
+    if request.GET.get('button') == "A":
+        return redirect('/options/save_game', {"path": "/options/save_game"})
+    if request.GET.get('button') == "START":
+        return redirect('/gameplay', {"path": "gameplay"})
+    if request.GET.get('button') == "B":
+        return redirect('/', {"path": "/"})
     return render(request, "html/options.html")
 
 def save(request) :
     global index
     worldmap = Worldmap(10, 10)
     l = len(worldmap.Player.moviedex)
+    if request.GET.get('button') == "B":
+        return redirect('/options', {"path": "options"})
     if request.GET.get('button') == "UP":
         if index > 0:
             index -= 1
@@ -173,6 +190,8 @@ def load(request) :
     l = len(worldmap.Player.moviedex)
     l1 = 0
     l2 = 0
+    if request.GET.get('button') == "B":
+        return redirect('/', {"path": "/"})
     if request.GET.get('button') == "UP":
         if index > 0:
             index -= 1

@@ -6,7 +6,7 @@
 	<div>
 		<table>
 			<tr>movieball: {{movieballNb}}</tr><br>
-			<tr>{{msg}}</tr>
+			<tr><td>{{msg}}</td></tr>
 		</table>
 	</div>
 	<table>
@@ -14,9 +14,9 @@
 		<tr>
 			{% for y in "0123456789" %}
 			{% if index_x == x and index_y == y %}
-			<td width="40" height="50"><img src="static/images/player.png" alt="player" width="40" height="50"></td>
+			<td width="40" height="40"><img src="static/images/player.png" alt="player" width="40" height="40"></td>
 			{% else %}
-			<td width="40" height="50"></td>
+			<td width="40" height="40"></td>
 			{% endif %}
 			{% endfor %}
 		</tr>
