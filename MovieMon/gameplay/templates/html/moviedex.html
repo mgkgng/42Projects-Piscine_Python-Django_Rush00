@@ -1,0 +1,12 @@
+{% extends "html/gameboy.html" %}
+
+{% block screen %}
+
+<div class = screen style = "background-color: green;">
+    {% for elem in img %}
+    <img class = frame style = "margin-left:5px; margin-top:5px;" src={{elem}} width="50" height="50">
+    {% endfor %}
+    {% for i < 50 %}
+</div>
+
+{% endblock %}
