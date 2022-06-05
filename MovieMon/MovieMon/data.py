@@ -10,8 +10,11 @@ class Game:
 		self.moviedex = moviedex
 
 class Player:
-	def __init__(self):
-		self.load_default_settings()
+	def __init__(self, save = None):
+		if save == None:
+			self.load_default_settings()
+		else:
+			self.load(save)
 
 	#### member functiosn asked in the subject ####
 	def load(self, saveName):
@@ -38,7 +41,7 @@ class Player:
 	def load_default_settings(self):
 		self.MovieMons = request_omdb()
 		self.playerStrength = 3.0
-		self.position = (0, 0)
+		self.position = (8, 8)
 		self.movieballsNb = 0
 		self.moviedex = []
 
