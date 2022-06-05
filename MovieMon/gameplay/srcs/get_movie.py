@@ -1,10 +1,9 @@
-import requests, json, sys
+import requests, json, os
 
 def request_omdb():
 	res = dict()
 
-	movielist = open("movielist.txt", 'r').readlines()
-	request_omdb(movielist)
+	movielist = open(os.getcwd() + "/gameplay/srcs/movielist.txt", 'r').readlines()
 
 	S = requests.Session()
 	URL = "http://www.omdbapi.com/?i=tt3896198&apikey=c4f868ed"
