@@ -20,40 +20,28 @@ class Player:
 	def load(self, saveName):
 		with open(saveName, "rb") as f:
 			loadGame = pickle.load(f)
-		self.MovieMons = loadGame.MovieMons
-		self.playerStrength = loadGame.playerStrength
-		self.position = loadGame.position
-		self.movieballsNb = loadGame.movieballsNb
-		self.moviedex = loadGame.moviedex
+		self.game = Game(loadGame.MovieMons, loadGame.playerStrength, loadGame.position, 
+			loadGame.movieballsNb, loadGame.moviedex)
 
 	def dump(self, saveName):
-		save = Game(self.MovieMons, 
-				self.playerStrength, 
-				self.position, 
-				self.movieballsNb, 
-				self.moviedex)
 		with open(saveName, "wb") as f:
-			pickle.dump(save, f)
+			pickle.dump(self.game, f)
 
 	def get_random_movie(self):
-		keys = list(self.MovieMons)
+		keys = list(self.game.MovieMons)
 		choice = random.choice(keys)
-		return self.MovieMons[str(choice)] # have to check later
+		return self.game.MovieMons[str(choice)] # have to check later
 
 	def load_default_settings(self):
-		self.MovieMons = request_omdb()
-		self.playerStrength = 10
-		self.position = [5, 5]
-		self.movieballsNb = 0
-		self.moviedex = []
+		self.game = Game(request_omdb(), 10, [5, 5], 0, [])
 
 	def get_strength(self):
-		return self.playerStrength
+		return self.game.playerStrength
 
 	def get_movie(self, name):
-		return self.MovieMons["name"]
+		return self.game.MovieMons["name"]
 
 	def get_movie_by_id(self, movie_id):
-		for moviename in self.MovieMons.keys():
-			if self.MovieMons[moviename]["imdbID"] == movie_id:
-				return self.MovieMons[moviename]
+		for moviename in self.game.MovieMons.keys():
+			if self.game.MovieMons[moviename]["imdbID"] == movie_id:
+				return self.game.MovieMons[moviename]
