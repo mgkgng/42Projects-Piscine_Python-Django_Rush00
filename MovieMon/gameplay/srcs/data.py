@@ -42,7 +42,7 @@ class Player:
 
 	def load_default_settings(self):
 		self.MovieMons = request_omdb()
-		self.playerStrength = 3.0
+		self.playerStrength = 10
 		self.position = [5, 5]
 		self.movieballsNb = 0
 		self.moviedex = []
