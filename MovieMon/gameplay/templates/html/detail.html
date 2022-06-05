@@ -1,0 +1,17 @@
+{% extends "html/gameboy.html" %}
+
+{% block screen %}
+
+<div class = screen style = "background-color: green;">
+    <div style = "margin-left:120px;">Name : {{name}}</div>
+    <img style = "margin-right:50px; margin-top:20px; margin-left:120px;" src="https://img.20mn.fr/BdKLTC6ITZ-am5J9CgwqoCk/768x492_illustration-australotitan-cooperensis-nouvelle-espece-dinosaure" width="100">
+    <div style = "margin-left:120px;">Director : {{director}}</div>
+    <div style = "margin-left:120px;">Year : {{year}}</div>
+    <div style = "margin-left:120px;">Rating : {{rating}}</div>
+    <div style = "margin-left:120px;">Synopsis : {{synopsis}}</div>
+    <div style = "margin-left:120px;">Actors : {{actors}}</div>
+    <div style = "margin-left:120px;">B-back : {{Bback}}</div>
+    <div style = "margin-left:120px; margin-top:20px;">B - Go back to the Moviedex page</div>
+</div>
+
+{% endblock %}

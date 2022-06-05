@@ -152,3 +152,21 @@ a {
     color:yellow;
     text-align:right;
 }
+
+.frame {
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgb(2, 14, 237);
+    background: rgb(2, 14, 237);
+    margin: auto;
+    padding: 2px 3px;
+}
+
+.frame_red {
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgb(237, 14, 2);
+    background: rgb(241, 30, 11);
+    margin: auto;
+    padding: 2px 3px;
+}
