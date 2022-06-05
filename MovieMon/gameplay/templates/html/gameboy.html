@@ -13,20 +13,19 @@
             {% endblock %}
             <table>
                 <tr>
-                    <td><a class = buttonUp href="/input">↑</a></td>
-                    <input type="hidden" name="test" value="Some Value"/>
+                    <td><a class = buttonUp href="{{path}}?button=1" >↑</a></td>
                 </tr>
                 <tr>
-                    <td><a class = buttonMiddleLeft href="/buttonMiddleLeft">←</a></td>
-                    <td><a class = buttonMiddleRight href="/buttonMiddleRight">→</a></td>
+                    <td><a class = buttonMiddleLeft href="{{path}}?button=2">←</a></td>
+                    <td><a class = buttonMiddleRight href="{{path}}?button=3">→</a></td>
                 </tr>
                 <tr>
-                    <td><a class = buttonDown href="/buttonDown">↓</a></td>
+                    <td><a class = buttonDown href="{{path}}?button=4">↓</a></td>
                 </tr>
             </table>
-            <td><a class = buttonAction1 href="buttonA">A</a><td><a class = buttonAction2 href="buttonB">B</a></td></td> 
-            <a class = buttonSpecial1 href="buttonStart">Start</a>
-            <a class = buttonSpecial2 href="buttonSelect">Select</a>
+            <td><a class = buttonAction1 href="{{path}}?button=5">A</a><td><a class = buttonAction2 href="gameboy?button=6">B</a></td></td> 
+            <a class = buttonSpecial1 href="{{path}}?button=7">Start</a>
+            <a class = buttonSpecial2 href="{{path}}?button=8">Select</a>
             <div></div>
         </div>
     </body>
