@@ -4,9 +4,12 @@
 
 <div class = screen style = "background-color: green;">
     {% for elem in img %}
+    {% if elem == choice %}
+    <img class = frame_red style = "margin-left:5px; margin-top:5px;" src={{elem}} width="50" height="50">
+    {% else %}
     <img class = frame style = "margin-left:5px; margin-top:5px;" src={{elem}} width="50" height="50">
+    {% endif %}
     {% endfor %}
-    {% for i < 50 %}
 </div>
 
 {% endblock %}

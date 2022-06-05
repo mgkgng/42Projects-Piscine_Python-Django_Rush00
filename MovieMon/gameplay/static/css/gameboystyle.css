@@ -161,3 +161,12 @@ a {
     margin: auto;
     padding: 2px 3px;
 }
+
+.frame_red {
+    width: 25px;
+    height: 25px;
+    border: 3px solid rgb(237, 14, 2);
+    background: rgb(241, 30, 11);
+    margin: auto;
+    padding: 2px 3px;
+}

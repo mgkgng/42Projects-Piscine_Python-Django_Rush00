@@ -2,12 +2,8 @@ from django.shortcuts import render, HttpResponse
 from .srcs.worldmap import Worldmap
 import random
 
-<<<<<<< HEAD
-global worldmap 
-
-#worldmap.Player.MovieMons["moviename"]["Poster"]
-=======
 global worldmap
+global now
 
 def titlepage(request):
     if request.GET.get('button') == "A":
@@ -41,15 +37,22 @@ def gameplay(request, game):
     print(request.GET.get('button')) 
     #form = Button()
     return render(request, "html/worldmap.html", {"path": "gameplay"})
->>>>>>> feature/battle
 
 def moviedex(request) :
+    print(request.GET.get("value"))
+    now = 2
     worldmap = Worldmap(10, 10)
-    list = [worldmap.Player.MovieMons[moviename]["Poster"] for moviename in worldmap.Player.MovieMons.keys()]
-    print(list)
-    i = 0
+    imgdex = [worldmap.Player.MovieMons[moviename]["Poster"] for moviename in worldmap.Player.MovieMons.keys()]
+    if request.GET.get('button') == "LEFT":
+        print("hello")
+        if now > 0:
+            now -= 1
+    elif request.GET.get('button') == "RIGHT":
+        if now < len(imgdex):
+            now += 1
+    choice = imgdex[now]
     #mydict = {}#Remplir des images des moviemons attrapes
-    return render (request,"html/moviedex.html", {"img" : list, "index" : i})
+    return render (request,"html/moviedex.html", {"path": "moviedex", "img" : imgdex, "choice" : choice})
 
 def battle(request) :
     movieballs = 10
@@ -60,12 +63,4 @@ def battle(request) :
     mydict["strength"] = 97
     mydict["winrate"] = 20
     mydict["success"] = random.randint(0, 1)
-<<<<<<< HEAD
     return render(request, "html/battle.html", mydict)
-
-def gameboy(request):
-    return render(request, "html/gameboy.html")
-
-=======
-    return render(request, "html/battle.html", mydict)
->>>>>>> feature/battle
