@@ -3,35 +3,21 @@ from .srcs.worldmap import Worldmap
 
 worldmap = Worldmap(10, 10)
 
-def gameboy(request):
-    return render(request, "html/gameboy.html")
+def titlepage(request):
+    if request.GET.get('button') == "A":
+        return (render(request, "html/worldmap.html", {"path": "gameplay"}))
+    elif request.GET.get('button') == "B":
+        return (render(request, "html/titlepage.html"), {})
+    return render(request, "html/titlepage.html", {"path": ""})
 
-def input(request):
-    pass
+def load(request):
+    if request.GET.get('button') == "A":
+        pass
+    if request.GET.get('button') == "B":
+        pass
+    return render(request, "html/load.html")
 
-def worldmap(request):
-    pass
-
-def buttonUp(request):
-    pass
-
-def buttonDown(request):
-    pass
-
-def buttonMiddleLeft(request):
-    pass
-
-def buttonMiddleRight(request):
-    pass
-
-def buttonA(request):
-    pass
-
-def buttonB(request):
-    pass
-
-def buttonStart(request):
-    pass
-
-def buttonSelect(request):
-    pass
+def gameplay(request, game):
+    print(request.GET.get('button'))
+    #form = Button()
+    return render(request, "html/worldmap.html", {"path": "gameplay"})
